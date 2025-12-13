@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عن سرد - سرد رقمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <style>
+        :root {
+            --primary-brown: #4d2407;
+            --secondary-brown: #321203;
+            --light-brown: #3e2403;
+            --cream: #5e3b26;
+            --dark-brown: #422202;
+            --accent-gold: #784428;
+            --text-dark: #532d1c;
+            --text-light: #532f26;
+            --bg-primary: #FFFFFF;
+            --bg-secondary: #FAF3E0;
+            --border-color: #e0d6c2;
+            --success-color: #27ae60;
+            --error-color: #e74c3c;
+            --shadow: 0 2px 15px rgba(139, 69, 19, 0.1);
+            --shadow-lg: 0 8px 25px rgba(139, 69, 19, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        /* أنماط خاصة بصفحة "عن سرد" */
+        .about-page {
+            padding: 2rem 0;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, rgba(77, 36, 7, 0.9) 0%, rgba(66, 34, 2, 0.9) 100%), url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 1s ease;
+        }
+
+        .about-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23ffffff" opacity="0.1"><circle cx="50" cy="50" r="2"/></svg>');
+            background-size: 50px 50px;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            color: white;
+        }
+
+        .about-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .about-section {
+            background: var(--bg-primary);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            animation: slideUp 0.8s ease;
+        }
+
+        .about-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-section h2 {
+            color: var(--primary-brown);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .about-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to left, var(--primary-brown), var(--accent-gold));
+            border-radius: 3px;
+        }
+
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .mission-card, .vision-card {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--secondary-brown) 100%);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-card::before, .vision-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+
+        .mission-card:hover, .vision-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            position: relative;
+        }
+
+        .knowledge-path {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .path-step {
+            background-color: var(--bg-secondary);
+            padding: 2rem 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .path-step:hover {
+            background-color: var(--accent-gold);
+            color: var(--dark-brown);
+            transform: scale(1.05);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, var(--primary-brown), var(--accent-gold));
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background-color: var(--bg-primary);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            animation: slideUp 0.8s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1.5rem;
+            border: 5px solid var(--light-brown);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .team-member:hover .member-avatar {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+        }
+
+        .member-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-brown);
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: var(--secondary-brown);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary-brown), var(--secondary-brown));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            animation: fadeIn 1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: translateX(-100%);
+        }
+
+        .stat-card:hover::before {
+            animation: shimmer 1.5s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form {
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-brown);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-primary);
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary-brown);
+            box-shadow: 0 0 0 2px rgba(77, 36, 7, 0.2);
+            outline: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-brown), var(--accent-gold));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* التجاوب */
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .about-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .about-section {
+                padding: 1.5rem;
+            }
+            
+            .mission-vision, .knowledge-path, .team-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-section > div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            .about-section img {
+                max-width: 100% !important;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .about-section > div[style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .about-section p[style*="font-size"] {
+                font-size: 1rem !important;
+            }
+        }
+    </style>
+</head>
+<body data-page="about">
+    <!-- الهيدر المطابق للصفحة الرئيسية -->
+    <header class="site-header surface-brown" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>سرد رقمي</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="courses.html">الدورات</a></li>
+                    <li><a href="sard-world.html">عالم سرد</a></li>
+                    <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                    <li><a href="about-sard.html">عن سرد</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث في سرد...">
+                    <button type="button" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">حساب جديد</a>
+                </div>
+                <div class="user-menu" style="display: none;">
+                    <button class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+                        <a href="my-courses.html"><i class="fas fa-book"></i> دوراتي</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> الإعدادات</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-container" role="main">
+        <div class="container">
+            <div class="about-page">
+                <!-- البطل -->
+                <div class="about-hero surface-brown">
+                    <h1>مشروع سرد رقمي</h1>
+                    <p>منصة شاملة تهدف إلى تحويل القراءة إلى تجربة حية وتفاعلية</p>
+                </div>
+     
+                <!-- المحتوى الرئيسي -->
+                <div class="about-content">
+                    <!-- مقدمة -->
+                    <section class="about-section">
+                        <h2>مقدمة عن سرد</h2>
+                        <p>مشروع <strong>سرد رقمي</strong> هو منصة شاملة تهدف إلى تحويل القراءة إلى تجربة حية وتفاعلية، تربط بين الكتب، المعرفة، المجتمع الرقمي، والتكنولوجيا.</p>
+                        <p>يسعى المشروع إلى تعزيز الثقافة والمعرفة من خلال دمج الأدب بالواقع، وتحويل محتوى الكتب إلى تجارب عملية ودورات وورش ومخرجات معرفية وثقافية.</p>
+                    </section>
+
+                    <!-- الرؤية والرسالة -->
+                    <div class="mission-vision">
+                        <div class="mission-card surface-brown">
+                            <div class="feature-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h3>رؤيتنا</h3>
+                            <p>خلق مجتمع معرفي متفاعل حيث تصبح القراءة تجربة حياتية متكاملة، تعزز التعلم المستمر، التفاعل الثقافي، والإنتاج المعرفي مع ربط الأدب والمعرفة بالتكنولوجيا.</p>
+                        </div>
+
+                        <div class="vision-card surface-brown">
+                            <div class="feature-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3>رسالتنا</h3>
+                            <p>تقديم منصة رقمية متكاملة تشمل الكتب، الأبحاث، الدورات والورش التفاعلية، والمجتمع الرقمي، بحيث يشارك القارئ القراءة، النقاش، والتطبيق العملي للأفكار، وصولاً إلى إنتاج المعرفة والمحتوى الثقافي.</p>
+                        </div>
+                    </div>
+
+                    <!-- الفكرة الأساسية -->
+                    <section class="about-section">
+                        <h2>الفكرة الأساسية ومسار المعرفة</h2>
+                        <p>يركز سرد رقمي على تحويل القراءة من نشاط فردي إلى تجربة مجتمعية متكاملة.</p>
+                        <div class="knowledge-path">
+                            <div class="path-step">
+                                <div class="step-number">1</div>
+                                <h4>القراءة</h4>
+                                <p>اكتشاف الكتب والمحتوى المعرفي</p>
+                            </div>
+                            <div class="path-step">
+                                <div class="step-number">2</div>
+                                <h4>الفهم + التطبيق</h4>
+                                <p>تحويل المعرفة إلى ممارسة عملية</p>
+                            </div>
+                            <div class="path-step">
+                                <div class="step-number">3</div>
+                                <h4>الإنتاج</h4>
+                                <p>خلق محتوى جديد من المعرفة</p>
+                            </div>
+                            <div class="path-step">
+                                <div class="step-number">4</div>
+                                <h4>المشاركة المجتمعية</h4>
+                                <p>تبادل المعرفة مع المجتمع</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- تأسيس سرد -->
+                    <section class="about-section">
+                        <h2>تأسيس سرد</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; margin-top: 2rem;">
+                            <div>
+                                <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">أسست الكاتبة نور عويدات مشروع سرد رقمي، منصة تعليمية وثقافية تهدف إلى تقريب الأدب والمعرفة من حياة الناس بأسلوب تفاعلي ومبتكر. أسست هذا المشروع لتكون تجربة ثقافية متكاملة تجمع بين إصدار كتب عملية مستوحاة من الأدب والتجارب الإنسانية، وتنظيم ورش عمل ودورات تعليمية تفاعلية، ودعم ذوي الاحتياجات الخاصة.</p>
+                                <p style="font-size: 1.1rem; line-height: 1.8;">كما يسعى المشروع إلى دمج التقنيات الرقمية والذكاء الاصطناعي لتقديم محتوى متنوع وشيّق عبر الموقع الإلكتروني، ليصبح الأدب والثقافة تجربة حية تلامس عقول وقلوب المتابعين. رؤيتي هي جعل المعرفة أكثر قربًا للإنسان، وفتح مساحة للإبداع والتعلم الرقمي بحيث يصبح كل كتاب، وكل ورشة، وكل نشاط، جسرًا بين الثقافة والواقع.</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <img src="sard.png/3.jpg" alt="تأسيس سرد رقمي" style="width: 100%; max-width: 500px; border-radius: 15px; box-shadow: var(--shadow-lg); object-fit: cover;">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- الإحصائيات -->
+                    <section class="about-section">
+                        <h2>إنجازات سرد</h2>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number">٣٬٨٩١</div>
+                                <div class="stat-label">عضو نشط</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">١٬٢٤٧</div>
+                                <div class="stat-label">منشور ثقافي</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">٨٩٤</div>
+                                <div class="stat-label">متدرّب في الدورات</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">١٥٦</div>
+                                <div class="stat-label">مقالة معرفية</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- اتصل بنا -->
+                    <section class="about-section">
+                        <h2>تواصل معنا</h2>
+                        <p>نرحب بآرائكم ومقترحاتكم لتطوير المنصة</p>
+                        
+                        <div class="contact-form">
+                            <form id="contactForm">
+                                <div class="form-group">
+                                    <label>الاسم الكامل</label>
+                                    <input type="text" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>البريد الإلكتروني</label>
+                                    <input type="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>الرسالة</label>
+                                    <textarea rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary">إرسال الرسالة</button>
+                            </form>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer surface-dark" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>سرد رقمي</h3>
+                    <p>مجتمع القراءة والكتابة الذي يجمع المبدعين والمهتمين باللغة العربية. انضم إلينا لتشارك قصصك وتتعلم مهارات جديدة.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="courses.html">الدورات</a></li>
+                        <li><a href="sard-world.html">عالم سرد</a></li>
+                        <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                        <li><a href="about-sard.html">عن سرد</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-envelope"></i> info@sardraqmi.com</p>
+                    <p><i class="fas fa-phone"></i> +966 50 123 4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 سرد رقمي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- الأكواد البرمجية المشتركة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // الأكواد البرمجية الخاصة بالصفحة
+        // ... (هنا يتم وضع الأكواد الخاصة بكل صفحة)
+    </script>
+    <script>
+        // الأكواد البرمجية المشتركة
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the application after DOM is loaded
+            document.addEventListener('DOMContentLoaded', () => {
+                // Check authentication status
+                const token = localStorage.getItem('token');
+                const loginLink = document.getElementById('loginLink');
+                const guestStatus = document.getElementById('guestStatus');
+                const userGreeting = document.getElementById('userGreeting');
+                const userName = document.getElementById('userName');
+
+                if (token) {
+                    // User is logged in
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (guestStatus) guestStatus.style.display = 'none';
+                    if (userGreeting) userGreeting.style.display = 'inline';
+                    
+                    // Load user data if needed
+                    if (window.auth && window.auth.getCurrentUser) {
+                        window.auth.getCurrentUser().then(user => {
+                            if (user && userName) {
+                                userName.textContent = user.full_name || user.email || 'مستخدم';
+                            }
+                        });
+                    }
+                } else {
+                    // User is not logged in
+                    if (loginLink) loginLink.style.display = 'inline';
+                    if (guestStatus) guestStatus.style.display = 'inline';
+                    if (userGreeting) userGreeting.style.display = 'none';
+                }
+
+                // Load posts if the function exists
+                if (typeof loadPosts === 'function') {
+                    loadPosts();
+                }
+            });
+        });
+    </script>

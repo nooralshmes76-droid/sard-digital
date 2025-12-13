@@ -1,0 +1,456 @@
+/* ================================
+   AI LIBRARY — مكتبة الذكاء الاصطناعي
+   (أنماط خاصة بالمكتبة الذكية فقط)
+================================ */
+
+/* الأنماط الخاصة بصفحة المكتبة الذكية */
+body[data-page="ai-library"] {
+    background: var(--bg-secondary);
+}
+
+.ai-library-container {
+    padding: 2rem 0;
+    min-height: calc(100vh - 200px);
+}
+
+/* رأس المكتبة الذكية */
+.ai-header {
+    text-align: center;
+    padding: 3rem 1rem;
+    margin-bottom: 2rem;
+}
+
+.ai-header h1 {
+    color: var(--primary-brown);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.ai-header p {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* شبكة أدوات الذكاء الاصطناعي */
+.ai-tools-grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.ai-tool {
+    background: var(--bg-primary);
+    padding: 1.8rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    height: 100%;
+}
+
+.ai-tool:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-gold);
+}
+
+.ai-tool h3 {
+    margin-bottom: 0.8rem;
+    color: var(--primary-brown);
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ai-tool p {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.ai-tool .tool-icon {
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+}
+
+/* حاوية المحادثة */
+.ai-chat-container {
+    background: var(--bg-primary);
+    border-radius: 15px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.chat-input {
+    display: flex;
+    padding: 1.5rem;
+    gap: 1rem;
+    background: white;
+    border-top: 1px solid var(--border-color);
+}
+
+.ai-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    font-size: 1rem;
+    font-family: inherit;
+    background: var(--bg-primary);
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+.ai-input:focus {
+    outline: none;
+    border-color: var(--primary-brown);
+    box-shadow: 0 0 0 3px rgba(77, 36, 7, 0.1);
+}
+
+.send-ai-btn {
+    background: var(--primary-brown);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-ai-btn:hover {
+    background: var(--dark-brown);
+    transform: rotate(15deg) scale(1.05);
+}
+
+/* الرسائل */
+.message {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.user-message {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+}
+
+.ai-message .message-avatar {
+    background: var(--primary-brown);
+    color: white;
+}
+
+.user-message .message-avatar {
+    background: var(--accent-gold);
+    color: var(--dark-brown);
+}
+
+.message-content {
+    flex: 1;
+    background: white;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    max-width: 70%;
+}
+
+.user-message .message-content {
+    background: var(--primary-brown);
+    color: white;
+    border-radius: 15px 15px 0 15px;
+}
+
+.ai-message .message-content {
+    background: white;
+    color: var(--text-dark);
+    border-radius: 15px 15px 15px 0;
+    border: 1px solid var(--border-color);
+}
+
+.message-content h4 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-brown);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.user-message .message-content h4 {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.message-content p {
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.message-content ul,
+.message-content ol {
+    margin-right: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.message-content li {
+    margin-bottom: 0.25rem;
+}
+
+.message-time {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    opacity: 0.8;
+    display: block;
+    margin-top: 0.5rem;
+}
+
+.user-message .message-time {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* مؤشر الكتابة */
+.typing-indicator {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.typing-dots {
+    display: flex;
+    gap: 4px;
+    padding: 8px 12px;
+    background: var(--bg-primary);
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.typing-dots span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-brown);
+    animation: typing 1.4s infinite ease-in-out;
+    opacity: 0.7;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+.typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing {
+    0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+/* بطاقات الميزات */
+.ai-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.feature-card {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-gold);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    color: var(--primary-brown);
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* أمثلة الاستخدام */
+.usage-examples {
+    background: var(--bg-primary);
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+    border: 1px solid var(--border-color);
+}
+
+.usage-examples h2 {
+    color: var(--primary-brown);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.example-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.example-item {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 10px;
+    border-right: 4px solid var(--accent-gold);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.example-item:hover {
+    background: var(--bg-primary);
+    transform: translateX(-5px);
+}
+
+.example-question {
+    font-weight: 600;
+    color: var(--primary-brown);
+    margin-bottom: 0.5rem;
+}
+
+.example-answer {
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+/* التجاوبية */
+@media (max-width: 1200px) {
+    .ai-chat-container {
+        height: 500px;
+    }
+    
+    .message-content {
+        max-width: 75%;
+    }
+}
+
+@media (max-width: 768px) {
+    .ai-header {
+        padding: 2rem 1rem;
+    }
+    
+    .ai-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .ai-header p {
+        font-size: 1rem;
+    }
+    
+    .ai-chat-container {
+        height: 500px;
+        margin-top: 1rem;
+    }
+    
+    .message {
+        gap: 0.75rem;
+    }
+    
+    .message-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .message-content {
+        padding: 0.75rem 1rem;
+        max-width: 80%;
+    }
+    
+    .chat-input {
+        padding: 1rem;
+    }
+    
+    .ai-input {
+        padding: 0.75rem 1rem;
+    }
+    
+    .send-ai-btn {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .ai-tools-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .ai-features {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .ai-chat-container {
+        height: 450px;
+    }
+    
+    .message-content {
+        max-width: 85%;
+    }
+    
+    .chat-input {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .ai-input {
+        width: 100%;
+    }
+    
+    .send-ai-btn {
+        align-self: flex-end;
+    }
+}

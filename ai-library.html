@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>المكتبة الذكية - سرد رقمي</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <!-- إزالة استدعاء ai-library.css -->
+    
+    <style>
+        /* أنماط إضافية للمكتبة الذكية فقط */
+        .ai-library-container {
+            padding: 2rem 0;
+            min-height: calc(100vh - 200px);
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+            padding: 10px 0;
+        }
+
+        .typing-dots span {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--primary-brown);
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .message {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ai-chat-container {
+            background: var(--bg-primary);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            margin-top: 2rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            background: var(--bg-secondary);
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .ai-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid var(--primary-brown);
+            border-radius: 25px;
+            font-size: 16px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            color: var(--text-dark);
+        }
+
+        .ai-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        }
+
+        .send-ai-btn {
+            background: var(--primary-brown);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-ai-btn:hover {
+            background: var(--dark-brown);
+            transform: scale(1.05);
+        }
+
+        .message-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-brown);
+            flex-shrink: 0;
+        }
+
+        .user-message {
+            flex-direction: row-reverse;
+        }
+
+        .user-message .message-content {
+            background: var(--primary-brown);
+            color: white;
+            border-radius: 15px 15px 0 15px;
+        }
+
+        .ai-message .message-content {
+            background: var(--bg-primary);
+            color: var(--text-dark);
+            border-radius: 15px 15px 15px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .message-content {
+            padding: 12px 15px;
+            max-width: 70%;
+        }
+
+        .message-content h4 {
+            margin-bottom: 5px;
+            color: var(--primary-brown);
+            font-size: 0.9rem;
+        }
+
+        .message-content p {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .message-content ul {
+            margin-right: 20px;
+            margin-bottom: 10px;
+        }
+
+        .message-content li {
+            margin-bottom: 5px;
+        }
+
+        .message-time {
+            font-size: 12px;
+            color: var(--text-light);
+            display: block;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        .ai-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .ai-header h1 {
+            color: var(--primary-brown);
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .ai-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .ai-chat-container {
+                height: 500px;
+                margin-top: 1rem;
+            }
+
+            .message-content {
+                max-width: 85%;
+            }
+
+            .ai-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .ai-header {
+                margin-top: 1rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body data-page="ai-library">
+
+    <!-- الهيدر المطابق للصفحة الرئيسية -->
+    <header class="site-header surface-brown" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>سرد رقمي</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="courses.html">الدورات</a></li>
+                    <li><a href="sard-world.html">عالم سرد</a></li>
+                    <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                    <li><a href="about-sard.html">عن سرد</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث في سرد...">
+                    <button type="button" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">حساب جديد</a>
+                </div>
+                <div class="user-menu" style="display: none;">
+                    <button class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+                        <a href="my-courses.html"><i class="fas fa-book"></i> دوراتي</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> الإعدادات</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-container" role="main">
+        <div class="container">
+
+            <div class="ai-library-container">
+
+                <div class="ai-header">
+                    <h1>🤖 المكتبة الذكية</h1>
+                    <p>مساعد ذكي متخصص في الكتب، اللغة العربية، الأدب، والثقافة ضمن منصة سرد</p>
+                </div>
+
+                <div class="ai-chat-container">
+
+                    <div class="chat-messages" id="chatMessages">
+
+                        <div class="message ai-message">
+                            <div class="message-avatar"><i class="fas fa-robot"></i></div>
+
+                            <div class="message-content">
+                                <h4>مساعد سرد</h4>
+
+                                <p>مرحباً بك في <strong>المكتبة الذكية</strong>. أنا مساعد متخصص في الكتب، القراءة، الأدب، واللغة العربية:</p>
+
+                                <ul>
+                                    <li>تلخيص الكتب</li>
+                                    <li>اقتراح الروايات</li>
+                                    <li>شرح قواعد اللغة</li>
+                                    <li>تحليل الأساليب الأدبية</li>
+                                </ul>
+
+                                <span class="message-time" id="welcomeTime"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="chat-input">
+                        <input type="text" class="ai-input" id="aiInput" placeholder="اسأل عن كتاب، رواية، قاعدة لغوية..." />
+                        <button class="send-ai-btn" id="sendAiBtn"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+    <footer class="site-footer surface-dark" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>سرد رقمي</h3>
+                    <p>مجتمع القراءة والكتابة الذي يجمع المبدعين والمهتمين باللغة العربية. انضم إلينا لتشارك قصصك وتتعلم مهارات جديدة.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="courses.html">الدورات</a></li>
+                        <li><a href="sard-world.html">عالم سرد</a></li>
+                        <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                        <li><a href="about-sard.html">عن سرد</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-envelope"></i> info@sardraqmi.com</p>
+                    <p><i class="fas fa-phone"></i> +966 50 123 4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 سرد رقمي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- الأكواد البرمجية المشتركة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // الأكواد البرمجية الخاصة بالصفحة
+        // ... (هنا يتم وضع الأكواد الخاصة بكل صفحة)
+    </script>
+    <script>
+        // الأكواد البرمجية المشتركة
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the application after DOM is loaded
+            document.addEventListener('DOMContentLoaded', () => {
+                // Check authentication status
+                const token = localStorage.getItem('token');
+                const loginLink = document.getElementById('loginLink');
+                const guestStatus = document.getElementById('guestStatus');
+                const userGreeting = document.getElementById('userGreeting');
+                const userName = document.getElementById('userName');
+
+                if (token) {
+                    // User is logged in
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (guestStatus) guestStatus.style.display = 'none';
+                    if (userGreeting) userGreeting.style.display = 'inline';
+                    
+                    // Load user data if needed
+                    if (window.auth && window.auth.getCurrentUser) {
+                        window.auth.getCurrentUser().then(user => {
+                            if (user && userName) {
+                                userName.textContent = user.full_name || user.email || 'مستخدم';
+                            }
+                        });
+                    }
+                } else {
+                    // User is not logged in
+                    if (loginLink) loginLink.style.display = 'inline';
+                    if (guestStatus) guestStatus.style.display = 'inline';
+                    if (userGreeting) userGreeting.style.display = 'none';
+                }
+
+                // Load posts if the function exists
+                if (typeof loadPosts === 'function') {
+                    loadPosts();
+                }
+            });
+        });
+    </script>

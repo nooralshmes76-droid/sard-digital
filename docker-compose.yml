@@ -1,0 +1,102 @@
+version: '3.8'
+
+services:
+  # تطبيق سرد الرقمي
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sard-digital-backend
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongo:27017/sard_digital
+      - JWT_SECRET=your_jwt_secret_key_here
+      - JWT_EXPIRE=30d
+      - JWT_COOKIE_EXPIRE=30
+      - CORS_ORIGIN=http://localhost:3000,http://localhost:5000,https://sard-digital.com
+    volumes:
+      - ./uploads:/app/backend/uploads
+      - ./logs:/app/backend/logs
+    depends_on:
+      - mongo
+    networks:
+      - sard-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/status"] # Updated healthcheck route
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # قاعدة بيانات MongoDB
+  mongo:
+    image: mongo:6.0
+    container_name: sard-digital-mongo
+    restart: unless-stopped
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin123
+      - MONGO_INITDB_DATABASE=sard_digital
+    volumes:
+      - mongodb_data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    ports:
+      - "27017:27017"
+    command: ["--wiredTigerCacheSizeGB=1.5"]
+    networks:
+      - sard-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # واجهة ويب لإدارة MongoDB (اختياري)
+  mongo-express:
+    image: mongo-express:1.0
+    container_name: sard-digital-mongo-express
+    restart: unless-stopped
+    ports:
+      - "8081:8081"
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=admin123
+      - ME_CONFIG_BASICAUTH_USERNAME=admin
+      - ME_CONFIG_BASICAUTH_PASSWORD=admin123
+    depends_on:
+      - mongo
+    networks:
+      - sard-network
+
+  # خدمة Nginx للواجهة الأمامية (اختياري)
+  nginx:
+    image: nginx:alpine
+    container_name: sard-digital-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - ../frontend/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+    networks:
+      - sard-network
+
+# تعريف الشبكة
+networks:
+  sard-network:
+    driver: bridge
+
+# تعريفات المجلدات
+volumes:
+  mongodb_data:
+    name: sard-digital-mongodb-data

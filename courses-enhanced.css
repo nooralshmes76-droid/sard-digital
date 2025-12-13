@@ -1,0 +1,197 @@
+/* courses-enhanced.css - Enhanced styles for courses page */
+
+.courses-page-header {
+    background: linear-gradient(135deg, rgba(77, 36, 7, 0.05) 0%, rgba(120, 68, 40, 0.05) 100%);
+    padding: 2rem;
+    border-left: 4px solid var(--accent-gold);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.courses-page-header h1 {
+    font-size: 2.2rem;
+    color: var(--primary-brown);
+    margin-bottom: 0.5rem;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+}
+
+.courses-page-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+/* Course grid enhancements */
+.courses-grid-enhanced {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+/* Course card enhanced styles */
+.course-card-enhanced .course-image-container {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--primary-brown) 0%, var(--accent-gold) 100%);
+}
+
+.course-card-enhanced .course-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.course-card-enhanced:hover .course-image {
+    transform: scale(1.05);
+}
+
+.course-card-enhanced .course-badge-top {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+.course-card-enhanced .course-badge-top.paid {
+    background: var(--accent-gold);
+    color: white;
+}
+
+.course-card-enhanced .course-badge-top.free {
+    background: #4caf50;
+    color: white;
+}
+
+/* Course content */
+.course-content-enhanced {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.course-content-enhanced h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-brown);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    min-height: 2.8em;
+}
+
+.course-description-enhanced {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Course meta */
+.course-meta-enhanced {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid var(--course-border);
+    border-bottom: 1px solid var(--course-border);
+    flex-wrap: wrap;
+}
+
+.course-meta-enhanced .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    flex: 1;
+    min-width: 120px;
+}
+
+.course-meta-enhanced .meta-item i {
+    color: var(--accent-gold);
+    font-size: 1rem;
+}
+
+/* Course price */
+.course-price-enhanced {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.course-price-enhanced .price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-brown);
+}
+
+.course-price-enhanced .original-price {
+    font-size: 0.9rem;
+    color: #999;
+    text-decoration: line-through;
+}
+
+/* Course actions */
+.course-actions-enhanced {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.course-actions-enhanced .enroll-btn-enhanced {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary-brown) 0%, var(--accent-gold) 100%);
+    color: white;
+}
+
+.course-actions-enhanced .enroll-btn-enhanced:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(77, 36, 7, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .courses-grid-enhanced {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .courses-page-header {
+        padding: 1.5rem;
+    }
+    
+    .courses-page-header h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .courses-grid-enhanced {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+

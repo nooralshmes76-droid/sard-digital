@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>عالم سرد - رحلة تفاعلية في عالم المعرفة  </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/mobile-optimizations.css" />
+    <link rel="stylesheet" href="css/sard-world.css" />
+    <style>
+        /* أنماط خاصة بصفحة عالم سرد */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr 320px;
+            gap: 30px;
+            align-items: start;
+        }
+
+        /* البطاقات */
+        .card {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+            border: 1px solid var(--border-color);
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            padding: 20px 25px;
+            border-bottom: 2px solid var(--border-color);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary-brown);
+            font-size: 18px;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        /* الشريط الجانبي */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: sticky;
+            top: 110px;
+        }
+
+        .user-card {
+            text-align: center;
+            padding: 30px 25px;
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--light-brown) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .user-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--cream) 100%);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .user-info h3 {
+            margin-bottom: 8px;
+            color: white;
+            font-size: 22px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .user-info p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-prompt {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--accent-gold);
+            color: var(--dark-brown);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-prompt:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar-widget h3 {
+            margin-bottom: 20px;
+            color: var(--primary-brown);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 18px;
+        }
+
+        .quick-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 15px 20px;
+            border: 2px solid var(--border-color);
+            background: white;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            text-align: right;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent-gold);
+            background: var(--bg-secondary);
+            transform: translateX(-5px);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--light-brown) 100%);
+            color: white;
+            border-color: var(--primary-brown);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+        }
+
+        .action-btn.primary:hover {
+            background: linear-gradient(135deg, var(--light-brown) 0%, var(--primary-brown) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .stat-card i {
+            font-size: 24px;
+            color: var(--primary-brown);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(77, 36, 7, 0.1);
+            border-radius: 12px;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-brown);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        .featured-ads {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .ad-item {
+            padding: 20px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+            border-radius: 15px;
+            position: relative;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .ad-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .ad-item.premium {
+            border-left-color: var(--accent-gold);
+            background: linear-gradient(135deg, #FFF8E1 0%, white 100%);
+        }
+
+        .ad-badge {
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            background: var(--accent-gold);
+            color: var(--dark-brown);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .ad-item h4 {
+            margin-bottom: 10px;
+            color: var(--primary-brown);
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .ad-item p {
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .ad-expiry {
+            font-size: 12px;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* المحتوى الرئيسي */
+        .news-header {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--dark-brown) 100%);
+            color: white;
+            padding: 35px 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .news-header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+        }
+
+        .news-header p {
+            opacity: 0.9;
+            font-size: 18px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .breaking-news {
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+            border: 2px solid var(--accent-gold);
+            padding: 18px 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            box-shadow: 0 4px 12px rgba(205, 133, 63, 0.2);
+        }
+
+        .breaking-label {
+            background: linear-gradient(135deg, var(--cream) 0%, var(--accent-gold) 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .breaking-content {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breaking-text {
+            font-weight: 700;
+            color: var(--dark-brown);
+            font-size: 16px;
+        }
+
+        .breaking-link {
+            color: var(--primary-brown);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .breaking-link:hover {
+            color: var(--dark-brown);
+            transform: translateX(-5px);
+        }
+
+        .section-title {
+            color: var(--primary-brown);
+            margin: 40px 0 25px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .featured-card {
+            position: relative;
+        }
+
+        .featured-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--accent-gold) 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--border-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-brown);
+            font-size: 48px;
+        }
+
+        .card-content {
+            padding: 25px;
+        }
+
+        .content-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .content-type {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .content-type.news {
+            background: #E8F5E8;
+            color: #2E7D32;
+        }
+
+        .content-type.blog {
+            background: #F3E5F5;
+            color: #7B1FA2;
+        }
+
+        .content-type.ad {
+            background: #FFF8E1;
+            color: #FF8F00;
+        }
+
+        .content-type.event {
+            background: #FFEBEE;
+            color: #C62828;
+        }
+
+        .content-date {
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .card-content h3 {
+            color: var(--primary-brown);
+            margin-bottom: 15px;
+            font-size: 20px;
+            line-height: 1.4;
+            font-weight: 700;
+        }
+
+        .card-content p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .content-stats {
+            display: flex;
+            gap: 20px;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .content-stats span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .latest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .news-card, .blog-card, .ad-card, .event-card {
+            padding: 25px;
+            transition: all 0.3s;
+            border-right: 4px solid transparent;
+        }
+
+        .news-card {
+            border-right-color: #2E7D32;
+        }
+
+        .blog-card {
+            border-right-color: #7B1FA2;
+        }
+
+        .ad-card {
+            border-right-color: #FF8F00;
+        }
+
+        .event-card {
+            border-right-color: #C62828;
+        }
+
+        .news-footer, .blog-footer, .ad-footer, .event-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--cream) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+        }
+
+        .read-time {
+            color: var(--text-light);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .discount {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .event-details {
+            display: flex;
+            gap: 15px;
+            font-size: 13px;
+            color: var(--text-light);
+        }
+
+        .action-btn.small {
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 50px;
+        }
+
+        .page-btn {
+            padding: 12px 18px;
+            border: 2px solid var(--border-color);
+            background: white;
+            color: var(--text-dark);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .page-btn:hover {
+            border-color: var(--accent-gold);
+            color: var(--primary-brown);
+            transform: translateY(-2px);
+        }
+
+        .page-btn.active {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--light-brown) 100%);
+            color: white;
+            border-color: var(--primary-brown);
+            box-shadow: 0 4px 12px rgba(139, 69, 19, 0.3);
+        }
+
+        .page-btn.next {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* الشريط الجانبي الأيمن */
+        .right-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: sticky;
+            top: 110px;
+        }
+
+        .widget-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .widget-header h3 {
+            margin: 0;
+            color: var(--primary-brown);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter-input {
+            padding: 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            background: white;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .subscribe-btn {
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--light-brown) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .subscribe-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        .ad-banner {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--dark-brown) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ad-banner::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .ad-banner .ad-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ad-banner p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            font-size: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ad-action {
+            background: var(--accent-gold);
+            color: var(--dark-brown);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+
+        .ad-action:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .events-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .event-item {
+            display: flex;
+            gap: 15px;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+        }
+
+        .event-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .event-date {
+            background: linear-gradient(135deg, var(--primary-brown) 0%, var(--light-brown) 100%);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 60px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-date .day {
+            font-size: 18px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .event-date .month {
+            font-size: 13px;
+            display: block;
+        }
+
+        .event-info h4 {
+            margin: 0 0 8px 0;
+            color: var(--primary-brown);
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .event-info p {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        .live-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .live-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, white 100%);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value {
+            font-weight: 700;
+            color: var(--primary-brown);
+            font-size: 18px;
+        }
+
+        /* تأثيرات إضافية */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* التجاوبية */
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 280px 1fr;
+            }
+            
+            .right-sidebar {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .featured-grid, .latest-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .news-header h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body data-page="world">
+    <!-- الهيدر المطابق للصفحة الرئيسية -->
+    <header class="site-header surface-brown" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>سرد رقمي</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="courses.html">الدورات</a></li>
+                    <li><a href="sard-world.html">عالم سرد</a></li>
+                    <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                    <li><a href="about-sard.html">عن سرد</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث في سرد...">
+                    <button type="button" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">حساب جديد</a>
+                </div>
+                <div class="user-menu" style="display: none;">
+                    <button class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+                        <a href="my-courses.html"><i class="fas fa-book"></i> دوراتي</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> الإعدادات</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-container" role="main">
+        <div class="container">
+            <div class="content-grid">
+                <!-- الشريط الجانبي -->
+                <aside class="sidebar">
+                    <div class="user-card card">
+                        <div class="user-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info">
+                            <h3>زائر</h3>
+                            <p>سجل الدخول للتفاعل</p>
+                        </div>
+                        <a href="login.html" class="login-prompt">تسجيل الدخول</a>
+                    </div>
+
+                    <!-- لوحة التحكم السريعة -->
+                    <div class="sidebar-widget card">
+                        <h3><i class="fas fa-bolt"></i> تحكم سريع</h3>
+                        <div class="quick-actions">
+                            <button class="action-btn primary">
+                                <i class="fas fa-plus"></i>
+                                نشر خبر جديد
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-edit"></i>
+                                كتابة مدونة
+                            </button>
+                            <button class="action-btn">
+                                <i class="fas fa-bullhorn"></i>
+                                إعلان مميز
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- الإحصائيات -->
+                    <div class="stats-widget card">
+                        <h3><i class="fas fa-chart-bar"></i> إحصائيات عالم سرد</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-newspaper"></i>
+                                <div class="stat-info">
+                                    <span class="stat-number">١٥٦</span>
+                                    <span class="stat-label">خبر منشور</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-eye"></i>
+                                <div class="stat-info">
+                                    <span class="stat-number">١٠٬٢٤٧</span>
+                                    <span class="stat-label">مشاهدة</span>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-users"></i>
+                                <div class="stat-info">
+                                    <span class="stat-number">٨٩</span>
+                                    <span class="stat-label">كاتب نشط</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الإعلانات المميزة -->
+                    <div class="featured-ads card">
+                        <h3><i class="fas fa-star"></i> إعلانات مميزة</h3>
+                        <div class="ad-item premium">
+                            <div class="ad-badge">مميز</div>
+                            <h4>دورة الكتابة الإبداعية</h4>
+                            <p>احجز مقعدك الآن بخصم 30%</p>
+                            <span class="ad-expiry">ينتهي بعد ٣ أيام</span>
+                        </div>
+                        <div class="ad-item">
+                            <h4>مسابقة القصة القصيرة</h4>
+                            <p>الجائزة الأولى: 5000 ريال</p>
+                            <span class="ad-expiry">ينتهي بعد أسبوع</span>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- المحتوى الرئيسي -->
+                <section class="main-content">
+                    <!-- الهيدر الرئيسي -->
+                    <div class="news-header">
+                        <h1>عالم سرد</h1>
+                        <p>مركز أخبار ومدونات وإعلانات مجتمع سرد</p>
+                    </div>
+
+                    <!-- الأخبار العاجلة -->
+                    <div class="breaking-news">
+                        <div class="breaking-label">
+                            <i class="fas fa-bolt"></i>
+                            عاجل
+                        </div>
+                        <div class="breaking-content">
+                            <span class="breaking-text">إطلاق منصة سرد الجديدة بمميزات متطورة - احجز مكانك الآن!</span>
+                            <a href="#" class="breaking-link">
+                                تفاصيل أكثر
+                                <i class="fas fa-chevron-left"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- شبكة المحتوى -->
+                    <div class="content-grid-main">
+                        <!-- المحتوى المميز -->
+                        <div class="featured-section">
+                            <h2 class="section-title"><i class="fas fa-star"></i> محتوى مميز</h2>
+                            <div class="featured-grid">
+                                <!-- محتوى مميز 1 -->
+                                <article class="featured-card card">
+                                    <div class="featured-badge">الأكثر مشاهدة</div>
+                                    <div class="card-image">
+                                        <i class="fas fa-newspaper"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="content-meta">
+                                            <span class="content-type news">خبر</span>
+                                            <span class="content-date">منذ ساعتين</span>
+                                        </div>
+                                        <h3>إطلاق المنصة الجديدة: ثورة في عالم المحتوى العربي</h3>
+                                        <p>منصة سرد تطلق تحديثها الأكبر بمميزات ذكية وتجربة مستخدم محسنة</p>
+                                        <div class="content-stats">
+                                            <span><i class="fas fa-eye"></i> ٢٬٤٥٦</span>
+                                            <span><i class="fas fa-comment"></i> ١٢٣</span>
+                                            <span><i class="fas fa-share"></i> ٨٩</span>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- محتوى مميز 2 -->
+                                <article class="featured-card card">
+                                    <div class="featured-badge">إعلان مميز</div>
+                                    <div class="card-image">
+                                        <i class="fas fa-bullhorn"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="content-meta">
+                                            <span class="content-type ad">إعلان</span>
+                                            <span class="content-date">منذ يوم</span>
+                                        </div>
+                                        <h3>مسابقة الكتابة الإبداعية - الجوائز تصل إلى 50,000 ريال</h3>
+                                        <p>انضم إلى أكبر مسابقة كتابة عربية واربح جوائز مالية قيمة</p>
+                                        <div class="content-stats">
+                                            <span><i class="fas fa-eye"></i> ٣٬١٢٣</span>
+                                            <span><i class="fas fa-users"></i> ٤٥٦ مشارك</span>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+
+                        <!-- أحدث المحتوى -->
+                        <div class="latest-section">
+                            <h2 class="section-title"><i class="fas fa-clock"></i> أحدث النشرات</h2>
+                            <div class="latest-grid">
+                                <!-- خبر 1 -->
+                                <article class="news-card card">
+                                    <div class="news-content">
+                                        <div class="content-meta">
+                                            <span class="content-type news">خبر</span>
+                                            <span class="content-date">منذ ٣٠ دقيقة</span>
+                                        </div>
+                                        <h3>ورشة عمل مجانية: أساسيات التسويق للمحتوى</h3>
+                                        <p>انضم إلى ورشتنا المجانية لاكتشاف أسرار التسويق الناجح للمحتوى الأدبي</p>
+                                        <div class="news-footer">
+                                            <div class="author">
+                                                <div class="author-avatar">س</div>
+                                                <span>فريق سرد</span>
+                                            </div>
+                                            <button class="action-btn small">
+                                                <i class="fas fa-external-link-alt"></i>
+                                                انضم الآن
+                                            </button>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- مدونة 1 -->
+                                <article class="blog-card card">
+                                    <div class="blog-content">
+                                        <div class="content-meta">
+                                            <span class="content-type blog">مدونة</span>
+                                            <span class="content-date">منذ ساعة</span>
+                                        </div>
+                                        <h3>كيف تكتب محتوى viral يصل إلى الملايين؟</h3>
+                                        <p>أسرار كتابة المحتوى الذي ينتشر بشكل orgánico على منصات التواصل</p>
+                                        <div class="blog-footer">
+                                            <div class="author">
+                                                <div class="author-avatar">أ</div>
+                                                <span>أحمد الكاتب</span>
+                                            </div>
+                                            <div class="read-time">٨ دقائق قراءة</div>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- إعلان 1 -->
+                                <article class="ad-card card">
+                                    <div class="ad-content">
+                                        <div class="content-meta">
+                                            <span class="content-type ad">إعلان</span>
+                                            <span class="content-date">منذ ساعتين</span>
+                                        </div>
+                                        <h3>خصم 40% على جميع الدورات - لفترة محدودة</h3>
+                                        <p>استفد من عروضنا الحصرية واحصل على خصم 40% على جميع دورات الكتابة والإلقاء</p>
+                                        <div class="ad-footer">
+                                            <span class="discount">خصم 40%</span>
+                                            <button class="action-btn small primary">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                احصل على العرض
+                                            </button>
+                                        </div>
+                                    </div>
+                                </article>
+
+                                <!-- فعالية 1 -->
+                                <article class="event-card card">
+                                    <div class="event-content">
+                                        <div class="content-meta">
+                                            <span class="content-type event">فعالية</span>
+                                            <span class="content-date">غداً ٤:٠٠ م</span>
+                                        </div>
+                                        <h3>ندوة حوارية: مستقبل المحتوى الرقمي</h3>
+                                        <p>حوار مفتوح مع خبراء الصناعة حول مستقبل المحتوى الرقمي في العالم العربي</p>
+                                        <div class="event-footer">
+                                            <div class="event-details">
+                                                <span><i class="fas fa-video"></i> أونلاين</span>
+                                                <span><i class="fas fa-users"></i> ٢٣٤ مسجل</span>
+                                            </div>
+                                            <button class="action-btn small">
+                                                <i class="fas fa-calendar-plus"></i>
+                                                سجل حضورك
+                                            </button>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- الترقيم -->
+                    <div class="pagination">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn next">
+                            <i class="fas fa-chevron-left"></i>
+                            التالية
+                        </button>
+                    </div>
+                </section>
+
+                <!-- الشريط الجانبي الأيمن -->
+                <aside class="right-sidebar">
+                    <!-- النشرة البريدية -->
+                    <div class="newsletter-widget card">
+                        <div class="widget-header">
+                            <i class="fas fa-paper-plane"></i>
+                            <h3>النشرة الإخبارية</h3>
+                        </div>
+                        <p>اشترك لتصلك آخر الأخبار والعروض الحصرية</p>
+                        <div class="newsletter-form">
+                            <input type="email" placeholder="بريدك الإلكتروني" class="newsletter-input"/>
+                            <button class="subscribe-btn">
+                                <i class="fas fa-bell"></i>
+                                اشتراك
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- الإعلانات السريعة -->
+                    <div class="quick-ads card">
+                        <div class="widget-header">
+                            <i class="fas fa-ad"></i>
+                            <h3>إعلانات سريعة</h3>
+                        </div>
+                        <div class="ad-banner">
+                            <div class="ad-title">دورة متقدمة في التسويق</div>
+                            <p>احصل على خصم 25% اليوم فقط</p>
+                            <button class="ad-action">اطلب الآن</button>
+                        </div>
+                    </div>
+
+                    <!-- الفعاليات القادمة -->
+                    <div class="upcoming-events card">
+                        <div class="widget-header">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3>فعاليات قادمة</h3>
+                        </div>
+                        <div class="events-list">
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="day">١٥</span>
+                                    <span class="month">ديسمبر</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>ملتقى الكتاب العرب</h4>
+                                    <p>٤:٠٠ م - أونلاين</p>
+                                </div>
+                            </div>
+                            <div class="event-item">
+                                <div class="event-date">
+                                    <span class="day">٢٠</span>
+                                    <span class="month">ديسمبر</span>
+                                </div>
+                                <div class="event-info">
+                                    <h4>ورشة التسويق بالمحتوى</h4>
+                                    <p>٦:٠٠ م - أونلاين</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- إحصائيات سريعة -->
+                    <div class="quick-stats-widget card">
+                        <div class="widget-header">
+                            <i class="fas fa-chart-bar"></i>
+                            <h3>إحصائيات حية</h3>
+                        </div>
+                        <div class="live-stats">
+                            <div class="live-stat">
+                                <span class="stat-label">مشاهدات اليوم</span>
+                                <span class="stat-value">٢٬٤٥٦</span>
+                            </div>
+                            <div class="live-stat">
+                                <span class="stat-label">زوار الآن</span>
+                                <span class="stat-value">١٢٣</span>
+                            </div>
+                            <div class="live-stat">
+                                <span class="stat-label">مشاركات جديدة</span>
+                                <span class="stat-value">١٨</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer surface-dark" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>سرد رقمي</h3>
+                    <p>مجتمع القراءة والكتابة الذي يجمع المبدعين والمهتمين باللغة العربية. انضم إلينا لتشارك قصصك وتتعلم مهارات جديدة.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="courses.html">الدورات</a></li>
+                        <li><a href="sard-world.html">عالم سرد</a></li>
+                        <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                        <li><a href="about-sard.html">عن سرد</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-envelope"></i> info@sardraqmi.com</p>
+                    <p><i class="fas fa-phone"></i> +966 50 123 4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 سرد رقمي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- الأكواد البرمجية المشتركة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // الأكواد البرمجية الخاصة بالصفحة
+        // ... (هنا يتم وضع الأكواد الخاصة بكل صفحة)
+    </script>
+    <script>
+        // الأكواد البرمجية المشتركة
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the application after DOM is loaded
+            document.addEventListener('DOMContentLoaded', () => {
+                // Check authentication status
+                const token = localStorage.getItem('token');
+                const loginLink = document.getElementById('loginLink');
+                const guestStatus = document.getElementById('guestStatus');
+                const userGreeting = document.getElementById('userGreeting');
+                const userName = document.getElementById('userName');
+
+                if (token) {
+                    // User is logged in
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (guestStatus) guestStatus.style.display = 'none';
+                    if (userGreeting) userGreeting.style.display = 'inline';
+                    
+                    // Load user data if needed
+                    if (window.auth && window.auth.getCurrentUser) {
+                        window.auth.getCurrentUser().then(user => {
+                            if (user && userName) {
+                                userName.textContent = user.full_name || user.email || 'مستخدم';
+                            }
+                        });
+                    }
+                } else {
+                    // User is not logged in
+                    if (loginLink) loginLink.style.display = 'inline';
+                    if (guestStatus) guestStatus.style.display = 'inline';
+                    if (userGreeting) userGreeting.style.display = 'none';
+                }
+
+                // Load posts if the function exists
+                if (typeof loadPosts === 'function') {
+                    loadPosts();
+                }
+            });
+        });
+    </script>

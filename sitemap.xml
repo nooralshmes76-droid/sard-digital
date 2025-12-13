@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- الصفحة الرئيسية -->
+    <url>
+        <loc>https://sard-digital.com/</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+    
+    <!-- صفحة من نحن -->
+    <url>
+        <loc>https://sard-digital.com/about-sard.html</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- المكتبة الرقمية -->
+    <url>
+        <loc>https://sard-digital.com/ai-library.html</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- الدورات التدريبية -->
+    <url>
+        <loc>https://sard-digital.com/courses.html</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <!-- عالم سرد -->
+    <url>
+        <loc>https://sard-digital.com/sard-world.html</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <!-- تسجيل الدخول -->
+    <url>
+        <loc>https://sard-digital.com/login.html</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- إنشاء حساب جديد -->
+    <url>
+        <loc>https://sard-digital.com/register.html</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+    
+    <!-- لوحة التحكم (للمستخدمين المسجلين فقط) -->
+    <url>
+        <loc>https://sard-digital.com/user-content.html</loc>
+        <lastmod>2025-12-04</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset>

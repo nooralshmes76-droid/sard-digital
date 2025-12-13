@@ -1,0 +1,27 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://sard-digital.com/sitemap.xml
+
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /account/
+Disallow: /api/
+
+# Disallow development and testing pages
+Disallow: /test/
+Disallow: /dev/
+
+# Crawl-delay: 10
+
+# Allow all other pages
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$

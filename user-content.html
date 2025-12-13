@@ -1,0 +1,439 @@
+<!-- ملف: my-account.html (صفحة المستخدم الشخصية) -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حسابي - سرد رقمي</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body data-page="account">
+    <header class="site-header surface-brown" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>سرد رقمي</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="courses.html">الدورات</a></li>
+                    <li><a href="sard-world.html">عالم سرد</a></li>
+                    <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                    <li><a href="about-sard.html">عن سرد</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث في سرد...">
+                    <button type="button" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">حساب جديد</a>
+                </div>
+                <div class="user-menu" style="display: none;">
+                    <button class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+                        <a href="my-courses.html"><i class="fas fa-book"></i> دوراتي</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> الإعدادات</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <main class="main-container">
+        <div class="content-grid">
+            <!-- الشريط الجانبي -->
+            <aside class="sidebar">
+                <div class="user-card">
+                    <img src="https://via.placeholder.com/80/8B4513/FFFFFF?text=أ" class="user-avatar" alt="أحمد">
+                    <div class="user-info">
+                        <h3>أحمد محمد</h3>
+                        <p>عضو منذ ٢٠٢٤</p>
+                        <div class="user-level">
+                            <span class="level-badge">قارئ نشط</span>
+                        </div>
+                    </div>
+                    <button class="edit-profile-btn">تعديل الملف الشخصي</button>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <a href="my-account.html" class="sidebar-link active">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>نظرة عامة</span>
+                    </a>
+                    <a href="my-posts.html" class="sidebar-link">
+                        <i class="fas fa-feather"></i>
+                        <span>منشوراتي</span>
+                    </a>
+                    <a href="my-courses.html" class="sidebar-link">
+                        <i class="fas fa-book-open"></i>
+                        <span>دوراتي</span>
+                    </a>
+                    <a href="bookmarks.html" class="sidebar-link">
+                        <i class="fas fa-bookmark"></i>
+                        <span>المحفوظات</span>
+                    </a>
+                    <a href="settings.html" class="sidebar-link">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </nav>
+
+                <div class="quick-stats">
+                    <h4>إحصائياتي</h4>
+                    <div class="stat-item">
+                        <i class="fas fa-feather-alt"></i>
+                        <span> منشور</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-comment"></i>
+                        <span>٤٥ تعليق</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>٢٣٤ إعجاب</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>٣ دورات</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- المحتوى الرئيسي -->
+            <section class="main-content">
+                <div class="page-header">
+                    <h1>👤 حسابي الشخصي</h1>
+                    <p>إدارة محتواك ونشاطك على منصة سرد</p>
+                </div>
+
+                <!-- الإحصائيات السريعة -->
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">١٧</div>
+                            <div class="stat-label">منشور</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">٤٥</div>
+                            <div class="stat-label">تعليق</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">٢٣٤</div>
+                            <div class="stat-label">إعجاب</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number">١٬٢٣٤</div>
+                            <div class="stat-label">مشاهدة</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- النشاط الأخير -->
+                <div class="activity-section">
+                    <h3>نشاطي الأخير</h3>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-feather"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>نشرت منشوراً جديداً <strong>"نقاش حول مخرجات سرد الأخيرة"</strong></p>
+                                <span class="activity-time">منذ ٤ ساعات</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>علقت على منشور <strong>"لماذا لا تكتمل الحياة بدون كتاب؟"</strong></p>
+                                <span class="activity-time">منذ يوم</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>سجلت في دورة <strong>"فن الكتابة الإبداعية"</strong></p>
+                                <span class="activity-time">منذ ٣ أيام</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p>أعجبت بـ ٥ منشورات في ساحة النقاش</p>
+                                <span class="activity-time">منذ أسبوع</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- المنشورات الأخيرة -->
+                <div class="recent-posts">
+                    <div class="section-header">
+                        <h3>أحدث منشوراتي</h3>
+                        <a href="my-posts.html" class="view-all">عرض الكل</a>
+                    </div>
+                    
+                    <div class="posts-grid">
+                        <div class="post-preview">
+                            <h4>نقاش حول مخرجات سرد الأخيرة</h4>
+                            <p>تشارك مع المجتمع في مناقشة أحدث إصدارات وتطورات منصة سرد...</p>
+                            <div class="post-meta">
+                                <span><i class="far fa-heart"></i> ٥</span>
+                                <span><i class="far fa-comment"></i> ٣</span>
+                                <span><i class="far fa-eye"></i> ٤٥</span>
+                                <span class="post-date">٢٠٢٤/١١/٠١</span>
+                            </div>
+                        </div>
+                        
+                        <div class="post-preview">
+                            <h4>ملخص ورشة الخطابة المؤثرة</h4>
+                            <p>أشارك معكم أهم النقاط والتجارب من ورشة الخطابة التي حضرتها...</p>
+                            <div class="post-meta">
+                                <span><i class="far fa-heart"></i> ١٢</span>
+                                <span><i class="far fa-comment"></i> </span>
+                                <span><i class="far fa-eye"></i> ٨٩</span>
+                                <span class="post-date">٢٠٢٤//٢٥</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الدورات المسجلة -->
+                <div class="my-courses">
+                    <div class="section-header">
+                        <h3>دوراتي</h3>
+                        <a href="courses.html" class="view-all">اكتشف المزيد</a>
+                    </div>
+                    
+                    <div class="courses-mini">
+                        <div class="course-mini-card">
+                            <h4>فن الكتابة الإبداعية</h4>
+                            <div class="course-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <span>٦٥% مكتمل</span>
+                            </div>
+                            <button class="continue-btn">استمر في التعلم</button>
+                        </div>
+                        
+                        <div class="course-mini-card">
+                            <h4>الخطابة المؤثرة</h4>
+                            <div class="course-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span>مكتمل</span>
+                            </div>
+                            <button class="certificate-btn">تحميل الشهادة</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- الشريط الجانبي الأيمن -->
+            <aside class="right-sidebar">
+                <!-- إنشاء منشور سريع -->
+                <div class="sidebar-widget">
+                    <h3>✍️ ابدأ منشوراً</h3>
+                    <div class="quick-post">
+                        <textarea placeholder="ما الجديد؟" class="quick-post-input"></textarea>
+                        <div class="quick-post-actions">
+                            <button class="action-btn-sm">
+                                <i class="fas fa-image"></i>
+                            </button>
+                            <button class="action-btn-sm">
+                                <i class="fas fa-video"></i>
+                            </button>
+                            <button class="publish-btn-sm">نشر</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الأهداف -->
+                <div class="sidebar-widget">
+                    <h3>🎯 أهدافي</h3>
+                    <div class="goals-list">
+                        <div class="goal-item">
+                            <div class="goal-info">
+                                <h4>قراءة ١٠ كتب</h4>
+                                <div class="goal-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 70%"></div>
+                                    </div>
+                                    <span>٧/١٠</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal-item">
+                            <div class="goal-info">
+                                <h4>كتابة  مقالات</h4>
+                                <div class="goal-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 40%"></div>
+                                    </div>
+                                    <span>٢/</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="goal-item">
+                            <div class="goal-info">
+                                <h4>إكمال ٣ دورات</h4>
+                                <div class="goal-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 66%"></div>
+                                    </div>
+                                    <span>٢/٣</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- الإنجازات -->
+                <div class="sidebar-widget">
+                    <h3>🏆 إنجازاتي</h3>
+                    <div class="badges-grid">
+                        <div class="badge">
+                            <i class="fas fa-comment-dots"></i>
+                            <span>المعلق النشط</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-pen-fancy"></i>
+                            <span>الكاتب المبدع</span>
+                        </div>
+                        <div class="badge">
+                            <i class="fas fa-book-reader"></i>
+                            <span>القارئ المنتظم</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <footer class="site-footer surface-dark" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>سرد رقمي</h3>
+                    <p>مجتمع القراءة والكتابة الذي يجمع المبدعين والمهتمين باللغة العربية. انضم إلينا لتشارك قصصك وتتعلم مهارات جديدة.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="courses.html">الدورات</a></li>
+                        <li><a href="sard-world.html">عالم سرد</a></li>
+                        <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                        <li><a href="about-sard.html">عن سرد</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-envelope"></i> info@sardraqmi.com</p>
+                    <p><i class="fas fa-phone"></i> +966 50 123 4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 سرد رقمي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- الأكواد البرمجية المشتركة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // الأكواد البرمجية الخاصة بالصفحة
+        // ... (هنا يتم وضع الأكواد الخاصة بكل صفحة)
+    </script>
+    <script>
+        // الأكواد البرمجية المشتركة
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the application after DOM is loaded
+            document.addEventListener('DOMContentLoaded', () => {
+                // Check authentication status
+                const token = localStorage.getItem('token');
+                const loginLink = document.getElementById('loginLink');
+                const guestStatus = document.getElementById('guestStatus');
+                const userGreeting = document.getElementById('userGreeting');
+                const userName = document.getElementById('userName');
+
+                if (token) {
+                    // User is logged in
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (guestStatus) guestStatus.style.display = 'none';
+                    if (userGreeting) userGreeting.style.display = 'inline';
+                    
+                    // Load user data if needed
+                    if (window.auth && window.auth.getCurrentUser) {
+                        window.auth.getCurrentUser().then(user => {
+                            if (user && userName) {
+                                userName.textContent = user.full_name || user.email || 'مستخدم';
+                            }
+                        });
+                    }
+                } else {
+                    // User is not logged in
+                    if (loginLink) loginLink.style.display = 'inline';
+                    if (guestStatus) guestStatus.style.display = 'inline';
+                    if (userGreeting) userGreeting.style.display = 'none';
+                }
+
+                // Load posts if the function exists
+                if (typeof loadPosts === 'function') {
+                    loadPosts();
+                }
+            });
+        });
+    </script>

@@ -1,0 +1,208 @@
+/* Mobile Optimizations for Sard Digital */
+/* This file contains mobile-specific styles that enhance the user experience on mobile devices */
+
+/* 1. Viewport Meta Tag - Ensure proper scaling on mobile devices */
+@viewport {
+  width: device-width;
+  zoom: 1.0;
+  min-zoom: 0.1;
+  max-zoom: 10;
+  user-zoom: fixed;
+}
+
+/* 2. Base mobile styles with enhanced touch targets and responsive design */
+/* 3. Media Queries for responsive design */
+/* Large tablets and small desktops */
+@media (max-width: 1024px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .sidebar,
+    .right-sidebar {
+        position: static;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .main-container {
+        padding: 1rem;
+    }
+    
+    /* Improve touch targets */
+    button, 
+    .btn,
+    a[role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Adjust post cards */
+    .post {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .post-actions {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .post-actions .btn {
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    /* Improve form elements */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    textarea {
+        font-size: 16px; /* Prevents zoom on focus in iOS */
+        padding: 0.75rem;
+    }
+    
+    /* Adjust modals */
+    .modal-content {
+        width: 95%;
+        margin: 1rem auto;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    /* Improve navigation */
+    .sidebar-nav a {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    
+    /* Adjust comment section */
+    .comments-section {
+        padding: 0.75rem;
+    }
+    
+    .comment {
+        padding: 0.75rem 0;
+    }
+    
+    /* Hide non-essential elements on mobile */
+    .desktop-only {
+        display: none;
+    }
+}
+
+/* 4. Small mobile devices */
+@media (max-width: 480px) {
+    :root {
+        --header-height: 100px;
+    }
+    
+    .post-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+    }
+    
+    .post-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    /* Adjust font sizes */
+    html {
+        font-size: 15px;
+    }
+    
+    h1 { font-size: 1.75rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.25rem; }
+}
+
+/* 5. Flexible Grid and Flexbox layouts */
+.content-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* 6. Enhanced touch targets (minimum 44x44px) */
+button, 
+.btn,
+[role="button"],
+input[type="submit"],
+input[type="button"],
+.sidebar-nav a,
+.post-actions .btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* 7. Optimized images and media */
+img, 
+video, 
+iframe {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 8. Text optimization for mobile */
+body {
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 9. Prevent horizontal scrolling */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Improve touch feedback */
+a, button, [role="button"] {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Optimize images for mobile */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Improve form elements on iOS */
+input, textarea, select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+/* Better scrolling on iOS */
+body {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Adjust font rendering for better readability */
+body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

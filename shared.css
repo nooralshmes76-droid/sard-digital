@@ -1,0 +1,945 @@
+:root {
+    --header-height: 120px;
+}
+
+/* Enhanced Arabic Typography */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+body {
+    padding-top: var(--header-height);
+    background: var(--bg-secondary);
+    font-family: 'Cairo', 'Noto Sans Arabic', 'Segoe UI', 'Tahoma', 'Arial', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Enhanced RTL support */
+* {
+    text-align: inherit;
+}
+
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* Arabic typography enhancements */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+}
+
+p, span, div, a, li {
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    line-height: 1.7;
+}
+
+body.drawer-open {
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    :root {
+        --header-height: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --header-height: 130px;
+    }
+}
+
+/* =========================================
+   Shared Header
+   ========================================= */
+.site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    background: linear-gradient(135deg, rgba(37, 15, 3, 0.92) 0%, rgba(19, 5, 1, 0.92) 100%), url('sard.png/2.jpg');
+    background-size: cover;
+    background-position: center;
+    border-bottom: 3px solid var(--accent-gold);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    color: var(--bg-secondary);
+}
+
+.header-bar {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem clamp(1rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    direction: rtl;
+    min-height: 100px;
+    justify-content: space-between;
+    position: relative;
+}
+
+.menu-toggle {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: transparent;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+    flex-shrink: 0;
+    order: 1;
+    margin-left: 0;
+}
+
+.menu-toggle:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.6);
+}
+
+.menu-toggle span {
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.menu-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.is-open span:first-child {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle.is-open span:last-child {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Header brand group - logo + text centered */
+.header-brand-group {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+    justify-content: center;
+    order: 2;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+}
+
+.header-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+/* Header brand inline - horizontal alignment */
+.header-brand-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: center;
+    min-width: 0;
+}
+
+/* Horizontal inline text layout */
+.site-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff8ef;
+    line-height: 1.3;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.site-slogan {
+    font-size: 0.9rem;
+    color: rgba(255, 248, 239, 0.9);
+    line-height: 1.3;
+    font-weight: 500;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    white-space: nowrap;
+    position: relative;
+    padding-right: 0.75rem;
+}
+
+.site-slogan::before {
+    content: '•';
+    position: absolute;
+    right: 0;
+    color: rgba(255, 248, 239, 0.5);
+    font-size: 0.7rem;
+}
+
+.header-menu {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    direction: ltr;
+}
+
+.header-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.9);
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.header-icon:hover,
+.header-icon:focus-visible {
+    background: rgba(255,255,255,0.2);
+    color: white;
+}
+
+.header-icon.active {
+    background: rgba(255,255,255,0.25);
+    color: white;
+}
+
+/* Square book-like logo */
+.book-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    border: 3px solid rgba(255, 255, 255, 0.9);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--accent-gold), var(--primary-brown));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.book-logo::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0 8px 8px 0;
+}
+
+.book-logo img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    display: block;
+    padding: 8%;
+}
+
+.brand-logo {
+    width: 70px;
+    height: 70px;
+}
+
+.brand-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .header-bar {
+        flex-wrap: nowrap;
+        gap: 0.75rem;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .menu-toggle {
+        order: 1;
+        margin-left: 0;
+    }
+
+    .header-brand-group {
+        position: static;
+        transform: none;
+        flex: 1;
+        justify-content: center;
+        gap: 0.75rem;
+        min-width: 0;
+        order: 2;
+    }
+
+    .header-brand-inline {
+        gap: 0.5rem;
+    }
+
+    .site-title {
+        font-size: 1.2rem;
+    }
+
+    .site-slogan {
+        font-size: 0.8rem;
+        padding-right: 0.5rem;
+    }
+
+    .site-slogan::before {
+        font-size: 0.6rem;
+    }
+
+    .book-logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-bar {
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+    }
+
+    .header-brand-group {
+        gap: 0.5rem;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-brand-inline {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+    }
+
+    .site-title {
+        font-size: 1.1rem;
+    }
+
+    .site-slogan {
+        font-size: 0.75rem;
+        padding-right: 0;
+    }
+
+    .site-slogan::before {
+        display: none;
+    }
+
+    .book-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .menu-toggle {
+        width: 42px;
+        height: 42px;
+    }
+}
+
+/* =========================================
+   Drawer Navigation
+   ========================================= */
+.drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+    z-index: 1200;
+}
+
+.drawer-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.site-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(380px, 90vw);
+    height: 100vh;
+    background: linear-gradient(180deg, #1d0b02 0%, #2c1405 100%);
+    border-left: 1px solid rgba(255,255,255,0.15);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.35);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1300;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.site-drawer.is-open {
+    transform: translateX(0);
+}
+
+.drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    background: rgba(0,0,0,0.2);
+}
+
+.drawer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.drawer-brand .book-logo {
+    flex-shrink: 0;
+}
+
+.drawer-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    line-height: 1.3;
+}
+
+.drawer-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #fff8ef;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    letter-spacing: -0.01em;
+}
+
+.drawer-tagline {
+    font-size: 0.85rem;
+    color: rgba(255, 248, 239, 0.75);
+    line-height: 1.2;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.drawer-close {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    background: rgba(255,255,255,0.1);
+    color: #fff8ef;
+    cursor: pointer;
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.drawer-close:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.5);
+}
+
+.drawer-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 1.5rem;
+    gap: 1.5rem;
+}
+
+.drawer-left-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.drawer-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #fff8ef;
+    font-weight: 600;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    transition: all 0.2s ease;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.drawer-menu-item:hover,
+.drawer-menu-item:focus-visible {
+    background: rgba(255,255,255,0.15);
+    border-color: rgba(255,255,255,0.3);
+    transform: translateX(-3px);
+    color: #fff8ef;
+}
+
+.drawer-menu-item i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.drawer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.drawer-card {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.drawer-card:hover,
+.drawer-card:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+}
+
+.drawer-card .drawer-emoji {
+    font-size: 1.4rem;
+}
+
+.drawer-card.active {
+    border-color: var(--primary-brown);
+    box-shadow: inset 0 0 0 1px var(--primary-brown);
+}
+
+.drawer-card .drawer-text {
+    color: inherit;
+}
+
+/* =========================================
+   Cards
+   ========================================= */
+
+/* =========================================
+   Cards
+   ========================================= */
+.card {
+    --card-padding: clamp(1rem, 1.8vw, 1.5rem);
+    padding: var(--card-padding);
+    border-radius: 16px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    text-align: right;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card--flush {
+    --card-padding: 0;
+}
+
+.card--center {
+    text-align: center;
+    align-items: center;
+}
+
+.card--space-between {
+    gap: 1.25rem;
+}
+
+.card > *:last-child {
+    margin-bottom: 0;
+}
+
+.card h3,
+.card h4 {
+    margin-bottom: 0.35rem;
+}
+
+.text-danger {
+    color: var(--error-color) !important;
+}
+
+/* =========================================
+   Footer
+   ========================================= */
+.site-footer {
+    margin-top: 4rem;
+    background: linear-gradient(135deg, rgba(37, 15, 3, 0.92) 0%, rgba(19, 5, 1, 0.92) 100%), url('sard.png/2.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff8ef;
+}
+
+.site-footer a {
+    color: rgba(255, 248, 239, 0.85);
+}
+
+.site-footer a:hover {
+    color: var(--accent-gold);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 3rem clamp(1rem, 4vw, 3rem);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    direction: rtl;
+}
+
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.footer-brand-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.footer-logo-link {
+    display: inline-flex;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.footer-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: right;
+}
+
+.footer-site-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #fff8ef;
+    line-height: 1.2;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    letter-spacing: -0.01em;
+}
+
+.footer-site-slogan {
+    font-size: 0.9rem;
+    color: rgba(255, 248, 239, 0.85);
+    line-height: 1.2;
+    font-family: 'Cairo', 'Noto Sans Arabic', sans-serif;
+    font-weight: 500;
+}
+
+.footer-section h4 {
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+}
+
+.site-footer .book-logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 8px;
+    border: 3px solid rgba(255, 248, 239, 0.9);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--accent-gold), var(--primary-brown));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.site-footer .book-logo::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 0 8px 8px 0;
+}
+
+.site-footer .book-logo img {
+    width: 85%;
+    height: 85%;
+    display: block;
+    object-fit: contain;
+    padding: 8%;
+}
+
+.footer-section a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-bottom: 0.35rem;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.footer-section a:hover {
+    color: var(--accent-gold);
+    transform: translateX(4px);
+}
+
+.social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.social-links a {
+    background: rgba(255,255,255,0.1);
+    padding: 0.5rem 0.9rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+}
+
+.social-links i {
+    font-size: 1rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    font-size: 0.9rem;
+}
+
+/* Color System: Brown background → Beige/White text */
+.surface-brown {
+    color: #fff8ef;
+}
+
+.surface-brown,
+.surface-brown * {
+    color: #fff8ef;
+}
+
+.surface-brown a {
+    color: #fff8ef;
+}
+
+.surface-brown a:hover {
+    color: var(--accent-gold);
+}
+
+.surface-brown h1,
+.surface-brown h2,
+.surface-brown h3,
+.surface-brown h4,
+.surface-brown h5,
+.surface-brown h6 {
+    color: #fff8ef;
+}
+
+/* Color System: Beige background → Brown text/borders */
+.surface-beige {
+    background: var(--bg-secondary);
+    color: var(--primary-brown);
+    border: 1px solid var(--primary-brown);
+}
+
+.surface-beige,
+.surface-beige * {
+    color: var(--primary-brown);
+}
+
+.surface-beige a {
+    color: var(--primary-brown);
+}
+
+.surface-beige a:hover {
+    color: var(--dark-brown);
+}
+
+.surface-beige h1,
+.surface-beige h2,
+.surface-beige h3,
+.surface-beige h4,
+.surface-beige h5,
+.surface-beige h6 {
+    color: var(--primary-brown);
+}
+
+.surface-beige .border-brown {
+    border-color: var(--primary-brown);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .site-drawer {
+        width: min(320px, 85vw);
+    }
+
+    .drawer-content {
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .drawer-header {
+        padding: 1rem;
+    }
+
+    .drawer-brand {
+        gap: 0.5rem;
+    }
+
+    .drawer-name {
+        font-size: 1rem;
+    }
+
+    .drawer-tagline {
+        font-size: 0.8rem;
+    }
+
+    .drawer-left-menu {
+        gap: 0.4rem;
+        padding-bottom: 1rem;
+    }
+
+    .drawer-menu-item {
+        padding: 0.7rem 0.85rem;
+        font-size: 0.9rem;
+    }
+
+    .footer-brand-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-brand-text {
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-site-title {
+        font-size: 1.3rem;
+    }
+
+    .footer-site-slogan {
+        font-size: 0.85rem;
+    }
+
+    .site-footer .book-logo {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-drawer {
+        width: 100vw;
+    }
+
+    .drawer-name {
+        font-size: 0.95rem;
+    }
+
+    .drawer-tagline {
+        font-size: 0.75rem;
+    }
+
+    .site-footer .book-logo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .footer-brand-wrapper {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 360px) {
+    body {
+        padding-top: var(--header-height);
+    }
+
+    .site-header {
+        position: fixed;
+    }
+
+    .header-bar {
+        padding: 0.75rem;
+        gap: 0.5rem;
+    }
+
+    .header-brand-group {
+        gap: 0.5rem;
+        position: static;
+        transform: none;
+        flex: 1;
+    }
+
+    .header-brand-inline {
+        gap: 0.25rem;
+    }
+
+    .site-title {
+        font-size: 1rem;
+    }
+
+    .site-slogan {
+        font-size: 0.7rem;
+    }
+
+    .book-logo {
+        width: 45px;
+        height: 45px;
+    }
+
+    .menu-toggle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .drawer-content {
+        padding: 0.75rem;
+    }
+
+    .drawer-header {
+        padding: 0.75rem;
+    }
+}
+

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>سرد رقمي - مجتمع القراءة والكتابة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/shared.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/mobile-optimizations.css" />
+    <link rel="stylesheet" href="css/discussion.css" />
+</head>
+<body data-page="home">
+    <header class="site-header surface-brown" role="banner">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <a href="index.html">
+                    <h1>سرد رقمي</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html" class="active">الرئيسية</a></li>
+                    <li><a href="courses.html">الدورات</a></li>
+                    <li><a href="sard-world.html">عالم سرد</a></li>
+                    <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                    <li><a href="about-sard.html">عن سرد</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث في سرد...">
+                    <button type="button" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">تسجيل الدخول</a>
+                    <a href="register.html" class="btn btn-primary">حساب جديد</a>
+                </div>
+                <div class="user-menu" style="display: none;">
+                    <button class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="profile.html"><i class="fas fa-user"></i> الملف الشخصي</a>
+                        <a href="my-courses.html"><i class="fas fa-book"></i> دوراتي</a>
+                        <a href="settings.html"><i class="fas fa-cog"></i> الإعدادات</a>
+                        <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-container" role="main">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="site-title">ساحة النقاش</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-container" role="main">
+        <div class="discussion-container">
+                <!-- إنشاء منشور جديد -->
+                <div class="create-post card">
+                    <div class="post-creator">
+                        <div class="author-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="post-form">
+                            <textarea id="postContent" rows="3" class="post-input" placeholder="ما الذي يدور في ذهنك، زائر؟"></textarea>
+                            <div class="post-actions">
+                                <div class="post-options">
+                                    <label class="file-upload">
+                                        <i class="fas fa-image"></i>
+                                        <input type="file" id="postImage" accept="image/*" style="display: none;">
+                                    </label>
+                                    <button class="emoji-picker">
+                                        <i class="far fa-smile"></i>
+                                    </button>
+                                </div>
+                                <button id="submitPost" class="post-submit" onclick="createPost()">نشر</button>
+                            </div>
+                            <div id="imagePreview" class="image-preview"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- المنشورات -->
+                <div class="posts-feed" id="postsFeed">
+                    <!-- سيتم إضافة المنشورات ديناميكياً هنا -->
+                </div>
+
+                <!-- قالب المنشور -->
+                <template id="postTemplate">
+                    <article class="post card" data-post-id="">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4 class="author-name">ندى الصاوي</h4>
+                                    <span class="post-time">منذ لحظات</span>
+                                </div>
+                            </div>
+                            <div class="post-actions">
+                                <button class="post-menu-btn">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="post-content">
+                            <p class="post-text"></p>
+                            <div class="post-image"></div>
+                        </div>
+
+                        <div class="post-stats">
+                            <div class="likes-count">
+                                <i class="fas fa-heart"></i>
+                                <span class="like-count">0</span>
+                            </div>
+                            <div class="comments-count">
+                                <span class="comment-count">0</span> تعليق
+                            </div>
+                        </div>
+
+                        <div class="post-actions">
+                            <button class="action-btn like-btn" onclick="toggleLike(this)">
+                                <i class="far fa-heart"></i>
+                                <span>أعجبني</span>
+                            </button>
+                            <button class="action-btn comment-btn" onclick="toggleComments(this)">
+                                <i class="far fa-comment"></i>
+                                <span>تعليق</span>
+                            </button>
+                            <button class="action-btn share-btn">
+                                <i class="fas fa-share"></i>
+                                <span>مشاركة</span>
+                            </button>
+                        </div>
+
+                        <div class="comments-section">
+                            <div class="comments-list"></div>
+                            <div class="add-comment">
+                                <input type="text" class="comment-input" placeholder="اكتب تعليقاً...">
+                                <button class="comment-submit" onclick="addComment(this)">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </template>
+
+                    <!-- منشور 2 -->
+                    <article class="post fade-in">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="author-info">
+                                    <h4>أحمد المنصوري</h4>
+                                    <span class="post-time">منذ ساعتين</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="post-content">
+                            <div class="post-text">
+                                <h3>أهمية الفصل بين الإلقاء والكتابة 🎤✍️</h3>
+                                <p>لاحظت في دورة سرد الأخيرة أن الإلقاء يختلف تماماً عن الكتابة. فالأول يعتمد على نبرة الصوت والإيماءات، بينما الثاني يعتمد على قوة الوصف وتكوين الجمل. لا تخلطوا بينهما في التدريب!</p>
+                            </div>
+                            <div class="post-image-placeholder">
+                                    <i class="fas fa-image fa-3x"></i>
+                            </div>
+                            <div class="post-tags">
+                                <span class="tag">#كتابة_إبداعية</span>
+                                <span class="tag">#إلقاء</span>
+                                <span class="tag">#تدريب</span>
+                            </div>
+                        </div>
+
+                        <div class="engagement-stats surface-beige">
+                            <div class="stats-left">
+                                <span class="stat-item">
+                                    <i class="fas fa-heart text-danger"></i>
+                                    <span>٨٩</span>
+                                </span>
+                                <span class="stat-item">
+                                    <i class="fas fa-comment"></i>
+                                    <span>١٥ تعليق</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="engagement-actions">
+                            <button class="engage-btn like-btn" onclick="toggleLike(this)">
+                                <i class="far fa-heart"></i>
+                                <span>إعجاب</span>
+                            </button>
+                            <button class="engage-btn comment-btn" onclick="toggleComments(this)">
+                                <i class="far fa-comment"></i>
+                                <span>تعليق</span>
+                            </button>
+                        </div>
+
+                        <!-- قسم التعليقات -->
+                        <div class="comments-section surface-beige" style="display: none;">
+                            <div class="add-comment">
+                                <div class="author-avatar">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="comment-input" contenteditable="true" placeholder="اكتب تعليقاً..."></div>
+                                <button class="comment-submit" onclick="addComment(this)">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="site-footer surface-dark" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>سرد رقمي</h3>
+                    <p>مجتمع القراءة والكتابة الذي يجمع المبدعين والمهتمين باللغة العربية. انضم إلينا لتشارك قصصك وتتعلم مهارات جديدة.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="فيسبوك"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="courses.html">الدورات</a></li>
+                        <li><a href="sard-world.html">عالم سرد</a></li>
+                        <li><a href="ai-library.html">المكتبة الذكية</a></li>
+                        <li><a href="about-sard.html">عن سرد</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>تواصل معنا</h3>
+                    <p><i class="fas fa-envelope"></i> info@sardraqmi.com</p>
+                    <p><i class="fas fa-phone"></i> +966 50 123 4567</p>
+                    <p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 سرد رقمي. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- الأكواد البرمجية المشتركة -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/shared.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // الأكواد البرمجية الخاصة بالصفحة
+        // ... (هنا يتم وضع الأكواد الخاصة بكل صفحة)
+    </script>
+    <script>
+        // الأكواد البرمجية المشتركة
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize the application after DOM is loaded
+            document.addEventListener('DOMContentLoaded', () => {
+                // Check authentication status
+                const token = localStorage.getItem('token');
+                const loginLink = document.getElementById('loginLink');
+                const guestStatus = document.getElementById('guestStatus');
+                const userGreeting = document.getElementById('userGreeting');
+                const userName = document.getElementById('userName');
+
+                if (token) {
+                    // User is logged in
+                    if (loginLink) loginLink.style.display = 'none';
+                    if (guestStatus) guestStatus.style.display = 'none';
+                    if (userGreeting) userGreeting.style.display = 'inline';
+                    
+                    // Load user data if needed
+                    if (window.auth && window.auth.getCurrentUser) {
+                        window.auth.getCurrentUser().then(user => {
+                            if (user && userName) {
+                                userName.textContent = user.full_name || user.email || 'مستخدم';
+                            }
+                        });
+                    }
+                } else {
+                    // User is not logged in
+                    if (loginLink) loginLink.style.display = 'inline';
+                    if (guestStatus) guestStatus.style.display = 'inline';
+                    if (userGreeting) userGreeting.style.display = 'none';
+                }
+
+                // Load posts if the function exists
+                if (typeof loadPosts === 'function') {
+                    loadPosts();
+                }
+            });
+        });
+    </script>
